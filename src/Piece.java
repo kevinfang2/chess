@@ -4,7 +4,8 @@ public class Piece {
 	private String side;
 	private Location coordinate = new Location(0, 0);
 	private ArrayList<Location> possibleMoves = new ArrayList<Location>();
-
+	private boolean firstClick = false;
+	
 	public Piece (Location coordinate, String side){
 		this.coordinate = coordinate;
 		this.side = side;
@@ -26,6 +27,14 @@ public class Piece {
 		return coordinate;
 	}
 
+	public boolean getClickNumber(){
+		return firstClick;
+	}
+	
+	public void setClickNumber(boolean check){
+		firstClick = check;
+	}
+	
 	public String getPath(){
 		// http://stackoverflow.com/questions/6271417/java-get-the-current-class-name
 		
