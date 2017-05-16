@@ -9,6 +9,7 @@ public class Piece{
 	private Location coordinate = new Location(0, 0);
 	private ArrayList<Location> possibleMoves = new ArrayList<Location>();
 	private boolean selected = false;
+	boolean hasMoved = false;
 	
 	public Piece (Location coordinate, String side){
 		this.coordinate = coordinate;
@@ -23,6 +24,10 @@ public class Piece{
 		return coordinate;
 	}
 
+	public void setCoordinate(Location newCoor){
+		this.coordinate = newCoor;
+	}
+	
 	public boolean getSelected(){
 		return selected;
 	}
@@ -33,35 +38,21 @@ public class Piece{
 	
 	public ArrayList<Location> getMoves(){
 		ArrayList<Location> possibleMoves = new ArrayList<Location>();
-//		System.out.println(this.side);
-		boolean hasMoved = true;
-		if(this.side == "white"){
-			if(this.coordinate.getY() != 7){
-				hasMoved = false;
-			}
-		}
-		else{
-			if(this.coordinate.getY() != 2){
-				hasMoved = false;
-			}
-		}
 
 		if(this.side == "white"){
-			if(hasMoved == false){
+			System.out.println(this.coordinate.getY());
+			if(this.coordinate.getY() == 7){
 				possibleMoves.add(new Location(coordinate.getX() - 2, coordinate.getY()));
-				hasMoved = true;
 			}
 			possibleMoves.add(new Location(coordinate.getX() - 1, coordinate.getY()));
 		}
 		else {
-			if(hasMoved == false){
+			if(this.coordinate.getY() == 2){
 				possibleMoves.add(new Location(coordinate.getX() + 2, coordinate.getY()));
 				hasMoved = true;
 			}
 			possibleMoves.add(new Location(coordinate.getX() + 1, coordinate.getY()));
 		}
-//		System.out.println("hallo");
-//		System.out.println(possibleMoves.size());
 		return possibleMoves;
 	}
 	

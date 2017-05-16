@@ -59,6 +59,7 @@ public class Unit extends JPanel implements ActionListener{
 	
 	public void removePiece(){
 		this.p = null; 
+		button.setIcon(null);
 	}
 
 	private Result checkSelect(ArrayList<Piece> pieces){
@@ -82,6 +83,7 @@ public class Unit extends JPanel implements ActionListener{
 		else{
 			pieces = Main.getBlackPieces();
 		}
+		
 		Result check = checkSelect(pieces);
 		
 		if(check.getClick() == false){
@@ -99,21 +101,40 @@ public class Unit extends JPanel implements ActionListener{
 
 			ArrayList<Location> moves = temp.getMoves();
 			
-//			System.out.println(temp.getSide());
 			System.out.println(loc);
 
 			for(int x=0; x<moves.size(); x++){
 				System.out.println(moves.get(x));
 				if(moves.get(x).equals(loc)){
 					System.out.println("index is");
-					System.out.println(Main.getWhitePieces().indexOf(temp));
+					if(Main.getTurn() == "white"){
+						System.out.println(Main.getWhitePieces().indexOf(temp));
+						int index = Main.getWhitePieces().indexOf(temp);
+						Piece selected = Main.getWhitePieces().get(index);
+						Location temp1 = selected.getCoordinate();
+						
+						selected.setCoordinate(loc);
+						Main.getGrid().get(loc.getX()*8 + loc.getY()).setPiece(selected);
+						
+						Main.getGrid().get(temp1.getX()*8 + loc.getY()).removePiece();
+						
+						Main.setTurn("black");
+					}
+					else{
+						System.out.println(Main.getBlackPieces().indexOf(temp));
+						int index = Main.getBlackPieces().indexOf(temp);
+						Piece selected = Main.getBlackPieces().get(index);
+						Location temp1 = selected.getCoordinate();
+						
+						selected.setCoordinate(loc);
+						Main.getGrid().get(loc.getX()*8 + loc.getY()).setPiece(selected);
+						
+						Main.getGrid().get(temp1.getX()*8 + loc.getY()).removePiece();
+						
+						Main.setTurn("white");
+					}
 				}
 			}
-//			System.out.println(loc);
-//			
-//			if(moves.contains(loc)){
-//				
-//			}
 		}
 	}
 }

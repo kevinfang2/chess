@@ -18,6 +18,7 @@ public class Main extends JPanel {
 	private static ArrayList<Piece> blackPieces = new ArrayList<Piece>();
 	private static ArrayList<Piece> whitePieces = new ArrayList<Piece>();
 	private static String turn = "white"; 
+	private static ArrayList<Unit> grid = new ArrayList<Unit>();
 	
 	public static void main(String[] args){
 		JFrame frame = new JFrame();
@@ -58,7 +59,8 @@ public class Main extends JPanel {
                 			//add white pieces
                 			String side = "white";
                 		}
-
+                		grid.add(square);
+                		
                     	chessBoard.add(square);
                 	}
             	}
@@ -81,4 +83,10 @@ public class Main extends JPanel {
 	public static void setTurn(String newTurn){
 		turn = newTurn;
 	}
+	
+	public static ArrayList<Unit> getGrid(){
+		return grid;
+	}
+	
+	
 }
