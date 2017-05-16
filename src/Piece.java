@@ -38,6 +38,9 @@ public class Piece{
 	
 	public boolean check(Location loc){
 		int index = loc.getX() * 8 + loc.getY();
+		if(!Main.getGrid().contains(loc)){
+			return false;
+		}
 		Piece piece = Main.getGrid().get(index).getPiece();
 		if(piece != null){
 			return false;

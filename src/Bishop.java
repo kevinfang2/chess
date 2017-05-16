@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
-public class Knight extends Piece{
+public class Bishop extends Piece{
 	private boolean hasMoved = false;
 	private String side;
 	private Location coordinate;
 	
-	public Knight(Location coordinate, String side) {
+	public Bishop(Location coordinate, String side) {
 		super(coordinate, side);
 		this.side = getSide();
 		this.coordinate = getCoordinate();
@@ -17,22 +17,22 @@ public class Knight extends Piece{
 		ArrayList<Location> returnedMoves = new ArrayList<Location>();
 		int x = coordinate.getX();
 		int y = coordinate.getY();
-		Location upRight1 = new Location(x - 2, y + 1);
-		Location upRight2 = new Location(x - 1, y + 2);
-		Location upLeft1 = new Location(x - 2, y - 1);
-		Location upLeft2 = new Location(x - 1, y - 2);
-		Location downRight1 = new Location(x + 2, y + 1);
-		Location downRight2 = new Location(x + 1, y + 2);
-		Location downLeft1 = new Location(x + 2, y - 1);
-		Location downLeft2 = new Location(x + 1, y - 2);
-		allPossibleMoves.add(upRight1);
-		allPossibleMoves.add(upRight2);
-		allPossibleMoves.add(upLeft1);
-		allPossibleMoves.add(upLeft2);
-		allPossibleMoves.add(downRight1);
-		allPossibleMoves.add(downRight2);
-		allPossibleMoves.add(downLeft1);
-		allPossibleMoves.add(downLeft2);
+		int min;
+		if(x>y){
+			min = x;
+		}
+		else{
+			min = y;
+		}
+		for(int i=x; i<8; i++){
+			Location temp = new Location(x+i,y+i);
+			allPossibleMoves.add(temp);
+		}
+		for (int j=x; j>0; j--){
+			Location temp = new Location(x+j,y+j);
+			allPossibleMoves.add(temp);
+		}
+
 		for(int i=0; i<allPossibleMoves.size(); i++){
 			Location checked = allPossibleMoves.get(i);
 			if(check(checked)){
