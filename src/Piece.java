@@ -36,18 +36,34 @@ public class Piece{
 		selected = check;
 	}
 	
+	public boolean check(Location loc){
+		int index = loc.getX() * 8 + loc.getY();
+		Piece piece = Main.getGrid().get(index).getPiece();
+		if(piece != null){
+			return false;
+		}
+		return true;
+	}
+	
 	public ArrayList<Location> getMoves(){
 		ArrayList<Location> possibleMoves = new ArrayList<Location>();
 
 		if(this.side == "white"){
-			System.out.println(this.coordinate.getY());
-			if(this.coordinate.getY() == 7){
-				possibleMoves.add(new Location(coordinate.getX() - 2, coordinate.getY()));
+			System.out.println(this.coordinate.getX());
+			if(this.coordinate.getX() == 6){
+				
+				Location doubleMove = new Location(coordinate.getX() - 2, coordinate.getY());
+				if(check(doubleMove)){
+					possibleMoves.add(doubleMove);
+				}
 			}
-			possibleMoves.add(new Location(coordinate.getX() - 1, coordinate.getY()));
+			Location singleMove = new Location(coordinate.getX() - 1, coordinate.getY());
+			if(check(singleMove)){
+				possibleMoves.add(new Location(coordinate.getX() - 1, coordinate.getY()));
+			}
 		}
 		else {
-			if(this.coordinate.getY() == 2){
+			if(this.coordinate.getX() == 1){
 				possibleMoves.add(new Location(coordinate.getX() + 2, coordinate.getY()));
 				hasMoved = true;
 			}

@@ -57,6 +57,10 @@ public class Unit extends JPanel implements ActionListener{
 		this.add(button);
 	}
 	
+	public Piece getPiece(){
+		return p;
+	}
+	
 	public void removePiece(){
 		this.p = null; 
 		button.setIcon(null);

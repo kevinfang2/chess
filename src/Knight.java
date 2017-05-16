@@ -14,16 +14,7 @@ public class Knight extends Piece{
 	
 	public ArrayList<Location> getMoves(){
 		ArrayList<Location> possibleMoves = new ArrayList<Location>();
-		if(side == "white"){
-			possibleMoves.add(new Location(coordinate.getX(), coordinate.getY() + 1));
-		}
-		else {
-			if(hasMoved == false){
-				possibleMoves.add(new Location(coordinate.getX(), coordinate.getY() - 2));
-				hasMoved = true;
-			}
-			possibleMoves.add(new Location(coordinate.getX(), coordinate.getY() - 1));
-		}
+		
 		return possibleMoves;
 	}
 	
