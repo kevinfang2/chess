@@ -24,4 +24,18 @@ public class Location {
 	public boolean populated(){
 		return populated;
 	}
+	
+	public String toString() {
+        return this.x + "," + this.y;
+    }
+	
+	public boolean equals (Object obj) {
+		if(this.getClass() == obj.getClass()){
+			Location piece2 = (Location) obj;
+			if(piece2.getX() == this.getX() && piece2.getY() == this.getY()){
+				return true;
+			}
+		}
+		return false;
+	}
 }

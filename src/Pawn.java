@@ -12,23 +12,24 @@ public class Pawn extends Piece{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void getMoves(){
-		ArrayList<Location> possibleMoves = new ArrayList<Location>();
-		if(side == "white"){
-			if(hasMoved == false){
-				possibleMoves.add(new Location(coordinate.getX(), coordinate.getY() + 2));
-				hasMoved = true;
-			}
-			possibleMoves.add(new Location(coordinate.getX(), coordinate.getY() + 1));
-		}
-		else {
-			if(hasMoved == false){
-				possibleMoves.add(new Location(coordinate.getX(), coordinate.getY() - 2));
-				hasMoved = true;
-			}
-			possibleMoves.add(new Location(coordinate.getX(), coordinate.getY() - 1));
-		}
-	}
+//	public ArrayList<Location> getMoves(){
+//		ArrayList<Location> possibleMoves = new ArrayList<Location>();
+//		if(side == "white"){
+//			if(hasMoved == false){
+//				possibleMoves.add(new Location(coordinate.getX(), coordinate.getY() + 2));
+//				hasMoved = true;
+//			}
+//			possibleMoves.add(new Location(coordinate.getX(), coordinate.getY() + 1));
+//		}
+//		else {
+//			if(hasMoved == false){
+//				possibleMoves.add(new Location(coordinate.getX(), coordinate.getY() - 2));
+//				hasMoved = true;
+//			}
+//			possibleMoves.add(new Location(coordinate.getX(), coordinate.getY() - 1));
+//		}
+//		return possibleMoves;
+//	}
 	
 	public ArrayList<Location> canCapture(){
 		return null;

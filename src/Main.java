@@ -17,7 +17,8 @@ public class Main extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private static ArrayList<Piece> blackPieces = new ArrayList<Piece>();
 	private static ArrayList<Piece> whitePieces = new ArrayList<Piece>();
-  
+	private static String turn = "white"; 
+	
 	public static void main(String[] args){
 		JFrame frame = new JFrame();
     
@@ -73,5 +74,11 @@ public class Main extends JPanel {
 		return whitePieces;
 	}
 	
+	public static String getTurn(){
+		return turn;
+	}
 
+	public static void setTurn(String newTurn){
+		turn = newTurn;
+	}
 }

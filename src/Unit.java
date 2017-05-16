@@ -13,9 +13,10 @@ import javax.imageio.ImageIO;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Unit extends JPanel implements ActionListener, MouseListener{
+public class Unit extends JPanel implements ActionListener{
 
 	/**
 	 * 
@@ -26,88 +27,115 @@ public class Unit extends JPanel implements ActionListener, MouseListener{
 	private int x;
 	private int y;
 	private boolean firstClick = false;
-	
+	private JButton button = new JButton();
+
 	public Unit(Location l){
 		this.loc = l;
 
 		this.x = loc.getX();
 		this.y = loc.getY();
-		if((x+y) % 2 == 0){
-			this.setBackground(new Color(99,60,3));
-    	}
-    	else{
+		if((x+y) % 2 == 1){
     		this.setBackground(Color.white);
     	}
     	this.setOpaque(true);
+        button.addActionListener(this);
+        button.setOpaque(false);
+        button.setContentAreaFilled(false);
+        button.setBorderPainted(false);
+        this.add(button);
 	}
 
 	public void setPiece(Piece p){
-		JButton button = new JButton();
 		this.p = p;
 		try {
 			Image img = ImageIO.read(getClass().getResource(p.getSide() + p.getPath() + ".png"));
 			System.out.println(p.getPath() + ".png");
 		    button.setIcon(new ImageIcon(img));
-	        button.setBorderPainted(false); 
-	        button.addActionListener(this);
 		} catch (Exception ex) {
 		    System.out.println(ex);
 		}
 		this.add(button);
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		System.out.println("action is performed");
-	}
 	
-	private boolean checkClickCount(ArrayList<Piece> pieces){
+	public void removePiece(){
+		this.p = null; 
+	}
+
+	private Result checkSelect(ArrayList<Piece> pieces){
 		for(int x=0; x<pieces.size(); x++){
 			Piece temp = pieces.get(x);
-			if(temp.getClickNumber() == true){
-				return true;
+			if(temp.getSelected() == true){
+				Result returnValue = new Result(temp, true);
+				return returnValue;
 			}
 		}
-		return false;
+		Result returnValue = new Result(false);
+		return returnValue;
 	}
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-		if(p.getSide() == "white"){
-			ArrayList<Piece> whitePieces = Main.getWhitePieces();
-			boolean clickNumber = checkClickCount(whitePieces);
+	
+	public void actionPerformed(ActionEvent e) {
+		String turn = Main.getTurn();
+		ArrayList<Piece> pieces = new ArrayList<Piece>();
+		if(turn == "white"){
+			pieces = Main.getWhitePieces();
 		}
 		else{
-			ArrayList<Piece> blackPieces = Main.getBlackPieces();
-			boolean clickNumber = checkClickCount(blackPieces);
+			pieces = Main.getBlackPieces();
 		}
-		if(p.getClickNumber() == false){
-			p.setClickNumber(true);
+		Result check = checkSelect(pieces);
+		
+		if(check.getClick() == false){
+			if(p != null){
+				p.setSelected(true);
+				System.out.println("selected");
+			}
+			else{
+				System.out.println("no piece nothing selected");
+			}
 		}
-		
-	}
+		else{
+			Piece temp = check.getPiece();
+			check.getPiece().setSelected(false);
 
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-	}
+			ArrayList<Location> moves = temp.getMoves();
+			
+//			System.out.println(temp.getSide());
+			System.out.println(loc);
 
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+			for(int x=0; x<moves.size(); x++){
+				System.out.println(moves.get(x));
+				if(moves.get(x).equals(loc)){
+					System.out.println("index is");
+					System.out.println(Main.getWhitePieces().indexOf(temp));
+				}
+			}
+//			System.out.println(loc);
+//			
+//			if(moves.contains(loc)){
+//				
+//			}
+		}
 	}
+}
 
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+class Result{
+	Piece p;
+	boolean clickNumber;
+
+	public Result(Piece p, boolean clickNumber){
+		this.p = p;
+		this.clickNumber = clickNumber;
 	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	
+	public Result(boolean clickNumber){
+		this.clickNumber = clickNumber;
+	}
+	
+	public Piece getPiece(){
+		return p;
+	}
+	
+	public boolean getClick(){
+		return clickNumber;
 	}
 }
