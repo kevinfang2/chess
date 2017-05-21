@@ -1,16 +1,17 @@
 import java.util.ArrayList;
 
 public class Knight extends Piece{
-	private boolean hasMoved = false;
-	private String side;
-	private Location coordinate;
 	
 	public Knight(Location coordinate, String side) {
 		super(coordinate, side);
+//		this.coordinate = coordinate;
+//		this.side = side;
 		// TODO Auto-generated constructor stub
 	}
 	
 	public ArrayList<Location> getMoves(){
+		System.out.println("this.coordinate is");
+		System.out.println(coordinate);
 		ArrayList<Location> allPossibleMoves = new ArrayList<Location>();
 		ArrayList<Location> returnedMoves = new ArrayList<Location>();
 		int x = coordinate.getX();
@@ -31,10 +32,12 @@ public class Knight extends Piece{
 		allPossibleMoves.add(downRight2);
 		allPossibleMoves.add(downLeft1);
 		allPossibleMoves.add(downLeft2);
+		System.out.println("moves are");
 		for(int i=0; i<allPossibleMoves.size(); i++){
 			Location checked = allPossibleMoves.get(i);
 			if(check(checked)){
-				if(Main.getLocations().contains(checked)){
+				if(x>=0 && x<8 && y>=0 && y<8){
+					System.out.println(allPossibleMoves.get(i));
 					returnedMoves.add(checked);
 				}
 			}

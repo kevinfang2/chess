@@ -19,7 +19,6 @@ public class Main extends JPanel {
 	private static ArrayList<Piece> whitePieces = new ArrayList<Piece>();
 	private static String turn = "white"; 
 	private static ArrayList<Unit> grid = new ArrayList<Unit>();
-	public static ArrayList<Location> locations = new ArrayList<Location>();
 	
 	public static void main(String[] args){
 		JFrame frame = new JFrame();
@@ -31,7 +30,7 @@ public class Main extends JPanel {
 				chessBoard.setPreferredSize(new Dimension(500, 500));
             
             	frame.add(chessBoard, BorderLayout.CENTER);
-            	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // EDIT
+            	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
             	frame.setResizable(false);
             	frame.pack();
             	frame.setVisible(true);
@@ -53,66 +52,63 @@ public class Main extends JPanel {
                 			whitePieces.add(whitePawn);
                 		}
                 		else if(i==0){
-                			//add black pieces
                 			String side = "black";
                 			if(j==0 || j == 7){
-                				Rook blackRook = new Rook(loc, "black");
+                				Rook blackRook = new Rook(loc, side);
                     			square.setPiece(blackRook);
                     			whitePieces.add(blackRook);
                 			}
                 			if(j==1 || j == 6){
-                				Knight blackKnight = new Knight(loc, "black");
+                				Knight blackKnight = new Knight(loc, side);
                     			square.setPiece(blackKnight);
                     			blackPieces.add(blackKnight);
                 			}
                 			if(j==2 || j == 5){
-                				Bishop blackBishop = new Bishop(loc, "black");
+                				Bishop blackBishop = new Bishop(loc, side);
                     			square.setPiece(blackBishop);
                     			blackPieces.add(blackBishop);
                 			}
                 			if(j==3){
-                				King blackKing = new King(loc, "black");
+                				King blackKing = new King(loc, side);
                     			square.setPiece(blackKing);
                     			whitePieces.add(blackKing);
                 			}
                 			if(j==4){
-                				Queen blackQueen = new Queen(loc, "black");
+                				Queen blackQueen = new Queen(loc, side);
                     			square.setPiece(blackQueen);
                     			whitePieces.add(blackQueen);
                 			}
 
                 		}
                 		else if(i==7){
-                			//add white pieces
                 			String side = "white";
                 			if(j==0 || j == 7){
-                				Rook whiteRook = new Rook(loc, "white");
+                				Rook whiteRook = new Rook(loc, side);
                     			square.setPiece(whiteRook);
                     			whitePieces.add(whiteRook);
                 			}
                 			if(j==1 || j == 6){
-                				Knight whiteKnight = new Knight(loc, "white");
+                				Knight whiteKnight = new Knight(loc, side);
                     			square.setPiece(whiteKnight);
                     			whitePieces.add(whiteKnight);
                 			}
                 			if(j==2 || j == 5){
-                				Bishop whiteBishop = new Bishop(loc, "white");
+                				Bishop whiteBishop = new Bishop(loc, side);
                     			square.setPiece(whiteBishop);
                     			whitePieces.add(whiteBishop);
                 			}
                 			if(j==3){
-                				King whiteKing = new King(loc, "white");
+                				King whiteKing = new King(loc, side);
                     			square.setPiece(whiteKing);
                     			whitePieces.add(whiteKing);
                 			}
                 			if(j==4){
-                				Queen whiteQueen = new Queen(loc, "white");
+                				Queen whiteQueen = new Queen(loc, side);
                     			square.setPiece(whiteQueen);
                     			whitePieces.add(whiteQueen);
                 			}
                 		}
                 		grid.add(square);
-                		locations.add(loc);
                     	chessBoard.add(square);
                 	}
             	}
@@ -138,10 +134,6 @@ public class Main extends JPanel {
 	
 	public static ArrayList<Unit> getGrid(){
 		return grid;
-	}
-	
-	public static ArrayList<Location> getLocations(){
-		return locations;
 	}
 	
 	

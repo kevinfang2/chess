@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -42,6 +43,7 @@ public class Unit extends JPanel implements ActionListener{
         button.setOpaque(false);
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);
+        button.setPreferredSize(new Dimension(63,63));
         this.add(button);
 	}
 
@@ -49,7 +51,6 @@ public class Unit extends JPanel implements ActionListener{
 		this.p = p;
 		try {
 			Image img = ImageIO.read(getClass().getResource(p.getSide() + p.getPath() + ".png"));
-			System.out.println(p.getPath() + ".png");
 		    button.setIcon(new ImageIcon(img));
 		} catch (Exception ex) {
 		    System.out.println(ex);
@@ -59,6 +60,13 @@ public class Unit extends JPanel implements ActionListener{
 	
 	public Piece getPiece(){
 		return p;
+	}
+	
+	public boolean hasPiece(){
+		if(this.p == null){
+			return false;
+		}
+		return true;
 	}
 	
 	public void removePiece(){
@@ -78,25 +86,30 @@ public class Unit extends JPanel implements ActionListener{
 		return returnValue;
 	}
 	
+	private void clear(ArrayList<Piece> pieces){
+		for(int x=0; x<pieces.size(); x++){
+			Piece temp = pieces.get(x);
+			if(temp.getSelected() == true){
+				temp.setSelected(false);
+			}
+		}
+	}
+	
 	public void actionPerformed(ActionEvent e) {
-		String turn = Main.getTurn();
 		ArrayList<Piece> pieces = new ArrayList<Piece>();
-		if(turn == "white"){
+		
+		if(Main.getTurn() == "white"){
 			pieces = Main.getWhitePieces();
 		}
 		else{
 			pieces = Main.getBlackPieces();
 		}
-		
 		Result check = checkSelect(pieces);
-		
+
 		if(check.getClick() == false){
-			if(p != null){
+			if(p != null && p.getSide() == Main.getTurn()){
+				clear(pieces);
 				p.setSelected(true);
-				System.out.println("selected");
-			}
-			else{
-				System.out.println("no piece nothing selected");
 			}
 		}
 		else{
@@ -104,37 +117,37 @@ public class Unit extends JPanel implements ActionListener{
 			check.getPiece().setSelected(false);
 
 			ArrayList<Location> moves = temp.getMoves();
-			
-			System.out.println(loc);
 
 			for(int x=0; x<moves.size(); x++){
-				System.out.println(moves.get(x));
 				if(moves.get(x).equals(loc)){
-					System.out.println("index is");
 					if(Main.getTurn() == "white"){
-						System.out.println(Main.getWhitePieces().indexOf(temp));
-						int index = Main.getWhitePieces().indexOf(temp);
-						Piece selected = Main.getWhitePieces().get(index);
+						ArrayList<Piece> whitePieces = Main.getWhitePieces();
+						int index = whitePieces.indexOf(temp);
+						Piece selected = whitePieces.get(index);
 						Location temp1 = selected.getCoordinate();
 						
 						selected.setCoordinate(loc);
 						Main.getGrid().get(loc.getX()*8 + loc.getY()).setPiece(selected);
+
+						Main.getGrid().get(temp1.getX()*8 + temp1.getY()).removePiece();
 						
-						Main.getGrid().get(temp1.getX()*8 + loc.getY()).removePiece();
-						
+						clear(whitePieces);
 						Main.setTurn("black");
 					}
 					else{
-						System.out.println(Main.getBlackPieces().indexOf(temp));
-						int index = Main.getBlackPieces().indexOf(temp);
-						Piece selected = Main.getBlackPieces().get(index);
+						ArrayList<Piece> blackPieces = Main.getBlackPieces();
+						int index = blackPieces.indexOf(temp);
+						Piece selected = blackPieces.get(index);
 						Location temp1 = selected.getCoordinate();
 						
 						selected.setCoordinate(loc);
+						
 						Main.getGrid().get(loc.getX()*8 + loc.getY()).setPiece(selected);
+						System.out.println("temp1");
+						System.out.println(temp1);
+						Main.getGrid().get(temp1.getX()*8 + temp1.getY()).removePiece();
 						
-						Main.getGrid().get(temp1.getX()*8 + loc.getY()).removePiece();
-						
+						clear(blackPieces);
 						Main.setTurn("white");
 					}
 				}

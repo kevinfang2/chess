@@ -7,6 +7,8 @@ public class Pawn extends Piece{
 	
 	public Pawn(Location coordinate, String side) {
 		super(coordinate, side);
+		this.coordinate = coordinate;
+		this.side = side;
 		// TODO Auto-generated constructor stub
 	}
 	

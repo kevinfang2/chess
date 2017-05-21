@@ -34,9 +34,9 @@ public class King extends Piece{
 		for(int i=0; i<allPossibleMoves.size(); i++){
 			Location checked = allPossibleMoves.get(i);
 			if(check(checked)){
-				if(Main.getLocations().contains(checked)){
-					returnedMoves.add(checked);
-				}
+//				if(Main.getLocations().contains(checked)){
+//					returnedMoves.add(checked);
+//				}
 			}
 		}
 	
