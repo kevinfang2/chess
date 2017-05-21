@@ -56,7 +56,7 @@ public class Main extends JPanel {
                 			if(j==0 || j == 7){
                 				Rook blackRook = new Rook(loc, side);
                     			square.setPiece(blackRook);
-                    			whitePieces.add(blackRook);
+                    			blackPieces.add(blackRook);
                 			}
                 			if(j==1 || j == 6){
                 				Knight blackKnight = new Knight(loc, side);
@@ -71,12 +71,12 @@ public class Main extends JPanel {
                 			if(j==3){
                 				King blackKing = new King(loc, side);
                     			square.setPiece(blackKing);
-                    			whitePieces.add(blackKing);
+                    			blackPieces.add(blackKing);
                 			}
                 			if(j==4){
                 				Queen blackQueen = new Queen(loc, side);
                     			square.setPiece(blackQueen);
-                    			whitePieces.add(blackQueen);
+                    			blackPieces.add(blackQueen);
                 			}
 
                 		}

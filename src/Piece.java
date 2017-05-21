@@ -50,11 +50,12 @@ public class Piece{
 	}
 	
 	public ArrayList<Location> getMoves(){
-		System.out.println("paw nlocation is");
-		System.out.println(coordinate);
 		ArrayList<Location> possibleMoves = new ArrayList<Location>();
 		if(this.side == "white"){
-			if(this.coordinate.getX() == 6){
+			Location temp = new Location(this.coordinate.getX() - 1, this.coordinate.getY());
+			Unit unit = Main.getGrid().get(temp.getX() * 8 + temp.getY());
+			
+			if(this.coordinate.getX() == 6 && !unit.hasPiece()){
 				Location doubleMove = new Location(coordinate.getX() - 2, coordinate.getY());
 				if(check(doubleMove)){
 					possibleMoves.add(doubleMove);
@@ -66,7 +67,10 @@ public class Piece{
 			}
 		}
 		else {
-			if(this.coordinate.getX() == 1){
+			Location temp = new Location(this.coordinate.getX() + 1, this.coordinate.getY());
+			Unit unit = Main.getGrid().get(temp.getX() * 8 + temp.getY());
+
+			if(this.coordinate.getX() == 1 && !unit.hasPiece()){
 				Location doubleMove = new Location(coordinate.getX() + 2, coordinate.getY());
 				if(check(doubleMove)){
 					possibleMoves.add(doubleMove);
