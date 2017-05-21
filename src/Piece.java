@@ -47,7 +47,8 @@ public class Piece{
 				possibleMoves.add(doubleMove);
 			}
 			Location singleMove = new Location(coordinate.getX() - 1, coordinate.getY());
-			possibleMoves.add(new Location(coordinate.getX() - 1, coordinate.getY()));
+			possibleMoves.add(singleMove);
+//			possibleMoves.addAll(checkCapture());
 		}
 		else {
 			Location temp = new Location(this.coordinate.getX() + 1, this.coordinate.getY());
@@ -58,7 +59,8 @@ public class Piece{
 				possibleMoves.add(doubleMove);
 			}
 			Location singleMove = new Location(coordinate.getX() + 1, coordinate.getY());
-			possibleMoves.add(new Location(coordinate.getX() + 1, coordinate.getY()));
+			possibleMoves.add(singleMove);
+//			possibleMoves.addAll(checkCapture());
 		}
 
 		return possibleMoves;
