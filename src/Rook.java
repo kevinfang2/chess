@@ -7,8 +7,6 @@ public class Rook extends Piece{
 	
 	public Rook(Location coordinate, String side) {
 		super(coordinate, side);
-		this.side = getSide();
-		this.coordinate = getCoordinate();
 		// TODO Auto-generated constructor stub
 	}
 	
