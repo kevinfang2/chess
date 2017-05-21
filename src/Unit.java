@@ -111,10 +111,16 @@ public class Unit extends JPanel implements ActionListener{
 			if(piece.getSide() != p2.getSide()){
 				if(p2.getClass().getSimpleName() != "Pawn"){
 					if(piece.getSide() == "black"){
+						if(piece.getClass() == King.class){
+							Main.gameOver(piece.getSide());
+						}
 						int index2 = Main.getBlackPieces().indexOf(piece);
 						Main.getBlackPieces().remove(index2);
 					}
 					else{
+						if(piece.getClass() == King.class){
+							Main.gameOver(piece.getSide());
+						}
 						int index2 = Main.getWhitePieces().indexOf(piece);
 						Main.getWhitePieces().remove(index2);
 					}
@@ -172,9 +178,12 @@ public class Unit extends JPanel implements ActionListener{
 							Main.getGrid().get(loc.getX()*8 + loc.getY()).setPiece(selected);
 							Main.getGrid().get(temp1.getX()*8 + temp1.getY()).removePiece();
 						
+							if(tempStore.getClass() == King.class){
+								Main.gameOver(tempStore.getSide());
+							}
 							int removeIndex = Main.getBlackPieces().indexOf(tempStore);
 							Main.getBlackPieces().remove(removeIndex);
-						
+							
 							clear(whitePieces);
 							Main.setTurn("black");	
 						}
@@ -191,9 +200,13 @@ public class Unit extends JPanel implements ActionListener{
 							Main.getGrid().get(loc.getX()*8 + loc.getY()).setPiece(selected);
 							Main.getGrid().get(temp1.getX()*8 + temp1.getY()).removePiece();
 						
+							if(tempStore.getClass() == King.class){
+								Main.gameOver(tempStore.getSide());
+							}
+							
 							int removeIndex = Main.getWhitePieces().indexOf(tempStore);
 							Main.getBlackPieces().remove(removeIndex);
-						
+							
 							clear(blackPieces);
 							Main.setTurn("white");	
 						}
@@ -215,7 +228,7 @@ public class Unit extends JPanel implements ActionListener{
 							Main.getGrid().get(temp1.getX()*8 + temp1.getY()).removePiece();
 							
 							clear(whitePieces);
-							Main.setTurn("black");	
+							Main.setTurn("black");
 						}
 					}
 					else{

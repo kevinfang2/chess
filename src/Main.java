@@ -136,5 +136,8 @@ public class Main extends JPanel {
 		return grid;
 	}
 	
+	public static void gameOver(String winningSide){
+		System.out.println(winningSide + " has lost");
+	}
 	
 }
