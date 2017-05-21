@@ -35,11 +35,9 @@ public class Knight extends Piece{
 		System.out.println("moves are");
 		for(int i=0; i<allPossibleMoves.size(); i++){
 			Location checked = allPossibleMoves.get(i);
-			if(check(checked)){
-				if(x>=0 && x<8 && y>=0 && y<8){
-					System.out.println(allPossibleMoves.get(i));
-					returnedMoves.add(checked);
-				}
+			if(x>=0 && x<8 && y>=0 && y<8){
+				System.out.println(allPossibleMoves.get(i));
+				returnedMoves.add(checked);
 			}
 		}
 	

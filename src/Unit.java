@@ -27,7 +27,6 @@ public class Unit extends JPanel implements ActionListener{
 	private Location loc;
 	private int x;
 	private int y;
-	private boolean firstClick = false;
 	private JButton button = new JButton();
 
 	public Unit(Location l){
@@ -95,6 +94,41 @@ public class Unit extends JPanel implements ActionListener{
 		}
 	}
 	
+	public boolean check(Piece p1, Piece p2){
+		int index = loc.getX() * 8 + loc.getY();
+		if(index < 0 || index >= 64){
+			return false;
+		}
+		
+		Unit unit = Main.getGrid().get(index);
+		Piece piece = unit.getPiece();
+		
+		System.out.println(p1.getClass().getSimpleName());
+		if(unit.hasPiece()){
+			if(piece.getSide() == p2.getSide()){
+				return false;
+			}
+			if(piece.getSide() != p2.getSide()){
+				if(p1.getClass().getSimpleName() != "Pawn"){
+					if(piece.getSide() == "black"){
+						int index2 = Main.getBlackPieces().indexOf(piece);
+						Main.getBlackPieces().remove(index2);
+					}
+					else{
+						int index2 = Main.getWhitePieces().indexOf(piece);
+						Main.getWhitePieces().remove(index2);
+					}
+				}
+				else{
+					return false;
+				}
+				
+			}
+		}
+
+		return true;
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 		ArrayList<Piece> pieces = new ArrayList<Piece>();
 		
@@ -125,14 +159,15 @@ public class Unit extends JPanel implements ActionListener{
 						int index = whitePieces.indexOf(temp);
 						Piece selected = whitePieces.get(index);
 						Location temp1 = selected.getCoordinate();
-						
-						selected.setCoordinate(loc);
-						Main.getGrid().get(loc.getX()*8 + loc.getY()).setPiece(selected);
+						if(check(temp, selected)){
+							selected.setCoordinate(loc);
+							Main.getGrid().get(loc.getX()*8 + loc.getY()).setPiece(selected);
 
-						Main.getGrid().get(temp1.getX()*8 + temp1.getY()).removePiece();
-						
-						clear(whitePieces);
-						Main.setTurn("black");
+							Main.getGrid().get(temp1.getX()*8 + temp1.getY()).removePiece();
+							
+							clear(whitePieces);
+							Main.setTurn("black");	
+						}
 					}
 					else{
 						ArrayList<Piece> blackPieces = Main.getBlackPieces();
@@ -142,13 +177,15 @@ public class Unit extends JPanel implements ActionListener{
 						
 						selected.setCoordinate(loc);
 						
-						Main.getGrid().get(loc.getX()*8 + loc.getY()).setPiece(selected);
-						System.out.println("temp1");
-						System.out.println(temp1);
-						Main.getGrid().get(temp1.getX()*8 + temp1.getY()).removePiece();
-						
-						clear(blackPieces);
-						Main.setTurn("white");
+						if(check(temp, selected)){
+							selected.setCoordinate(loc);
+							Main.getGrid().get(loc.getX()*8 + loc.getY()).setPiece(selected);
+
+							Main.getGrid().get(temp1.getX()*8 + temp1.getY()).removePiece();
+							
+							clear(blackPieces);
+							Main.setTurn("white");	
+						}
 					}
 				}
 			}

@@ -36,19 +36,6 @@ public class Piece{
 		selected = check;
 	}
 	
-	public boolean check(Location loc){
-		int index = loc.getX() * 8 + loc.getY();
-		if(index < 0 || index >= 64){
-			return false;
-		}
-		
-		Unit unit = Main.getGrid().get(index);
-		if(unit.hasPiece()){
-			return false;
-		}
-		return true;
-	}
-	
 	public ArrayList<Location> getMoves(){
 		ArrayList<Location> possibleMoves = new ArrayList<Location>();
 		if(this.side == "white"){
@@ -57,14 +44,10 @@ public class Piece{
 			
 			if(this.coordinate.getX() == 6 && !unit.hasPiece()){
 				Location doubleMove = new Location(coordinate.getX() - 2, coordinate.getY());
-				if(check(doubleMove)){
-					possibleMoves.add(doubleMove);
-				}
+				possibleMoves.add(doubleMove);
 			}
 			Location singleMove = new Location(coordinate.getX() - 1, coordinate.getY());
-			if(check(singleMove)){
-				possibleMoves.add(new Location(coordinate.getX() - 1, coordinate.getY()));
-			}
+			possibleMoves.add(new Location(coordinate.getX() - 1, coordinate.getY()));
 		}
 		else {
 			Location temp = new Location(this.coordinate.getX() + 1, this.coordinate.getY());
@@ -72,14 +55,10 @@ public class Piece{
 
 			if(this.coordinate.getX() == 1 && !unit.hasPiece()){
 				Location doubleMove = new Location(coordinate.getX() + 2, coordinate.getY());
-				if(check(doubleMove)){
-					possibleMoves.add(doubleMove);
-				}
+				possibleMoves.add(doubleMove);
 			}
 			Location singleMove = new Location(coordinate.getX() + 1, coordinate.getY());
-			if(check(singleMove)){
-				possibleMoves.add(new Location(coordinate.getX() + 1, coordinate.getY()));
-			}
+			possibleMoves.add(new Location(coordinate.getX() + 1, coordinate.getY()));
 		}
 
 		return possibleMoves;
