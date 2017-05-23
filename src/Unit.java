@@ -95,7 +95,6 @@ public class Unit extends JPanel implements ActionListener{
 	}
 	
 	public boolean check(Piece p2){
-		//p2 is capturing piece, piece is captured piece
 		int index = loc.getX() * 8 + loc.getY();
 		if(index < 0 || index >= 64){
 			return false;
@@ -103,14 +102,18 @@ public class Unit extends JPanel implements ActionListener{
 		
 		Unit unit = Main.getGrid().get(index);
 		Piece piece = unit.getPiece();
-		
+		System.out.println(unit.hasPiece());
 		if(unit.hasPiece()){
+			System.out.println(piece.getSide());
 			if(piece.getSide() == p2.getSide()){
 				return false;
 			}
 			if(piece.getSide() != p2.getSide()){
+				System.out.println(p2.getSide());
 				if(p2.getClass().getSimpleName() != "Pawn"){
+					System.out.println(p2.getClass().getSimpleName());
 					if(piece.getSide() == "black"){
+						System.out.println("black got into here");
 						if(piece.getClass() == King.class){
 							Main.gameOver(piece.getSide());
 						}
@@ -118,6 +121,7 @@ public class Unit extends JPanel implements ActionListener{
 						Main.getBlackPieces().remove(index2);
 					}
 					else{
+						System.out.println("white got into here");
 						if(piece.getClass() == King.class){
 							Main.gameOver(piece.getSide());
 						}
@@ -155,17 +159,12 @@ public class Unit extends JPanel implements ActionListener{
 		else{
 			Piece temp = check.getPiece();
 			check.getPiece().setSelected(false);
-
 			ArrayList<Location> moves = temp.getMoves();
 			if(temp.getClass() == Pawn.class){
 				Pawn pawn = (Pawn)temp;
 				ArrayList<Location> locs = pawn.checkCapture();
-				System.out.println(locs.size());
 				for(int x=0; x<locs.size(); x++){
-					System.out.println(this.loc);
-					System.out.println(locs.get(x));
 					if(this.loc.equals(locs.get(x))){
-						System.out.println("got into here");
 						if(Main.getTurn() == "white"){
 							ArrayList<Piece> whitePieces = Main.getWhitePieces();
 							int index = whitePieces.indexOf(temp);
@@ -174,7 +173,7 @@ public class Unit extends JPanel implements ActionListener{
 						
 							selected.setCoordinate(loc);
 							Piece tempStore = p;
-
+							
 							Main.getGrid().get(loc.getX()*8 + loc.getY()).setPiece(selected);
 							Main.getGrid().get(temp1.getX()*8 + temp1.getY()).removePiece();
 						
@@ -196,7 +195,6 @@ public class Unit extends JPanel implements ActionListener{
 							selected.setCoordinate(loc);
 							Piece tempStore = p;
 							
-
 							Main.getGrid().get(loc.getX()*8 + loc.getY()).setPiece(selected);
 							Main.getGrid().get(temp1.getX()*8 + temp1.getY()).removePiece();
 						
@@ -213,15 +211,18 @@ public class Unit extends JPanel implements ActionListener{
 					}
 				}
 			}
+			System.out.println("lociation");
+			System.out.println(loc);
 			for(int x=0; x<moves.size(); x++){
+				System.out.println(moves.get(x));
 				if(moves.get(x).equals(loc)){
 					if(Main.getTurn() == "white"){
 						ArrayList<Piece> whitePieces = Main.getWhitePieces();
 						int index = whitePieces.indexOf(temp);
 						Piece selected = whitePieces.get(index);
 						Location temp1 = selected.getCoordinate();
-						
 						if(check(selected)){
+							System.out.println("got into here 4");
 							selected.setCoordinate(loc);
 							Main.getGrid().get(loc.getX()*8 + loc.getY()).setPiece(selected);
 

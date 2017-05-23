@@ -8,7 +8,6 @@ public class Bishop extends Piece{
 	}
 	
 	public ArrayList<Location> getMoves(){
-		System.out.println("got here");
 		ArrayList<Location> allPossibleMoves = new ArrayList<Location>();
 		ArrayList<Location> returnedMoves = new ArrayList<Location>();
 		int x = coordinate.getX();
@@ -32,7 +31,6 @@ public class Bishop extends Piece{
 			int a = checked.getX();
 			int b = checked.getY();
 			if(a>=0 && a<8 && b>=0 && b<8){
-				System.out.println(checked);
 				returnedMoves.add(checked);
 			}
 		}
