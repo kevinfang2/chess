@@ -19,10 +19,9 @@ public class Main extends JPanel {
 	private static ArrayList<Piece> whitePieces = new ArrayList<Piece>();
 	private static String turn = "white"; 
 	private static ArrayList<Unit> grid = new ArrayList<Unit>();
+	private static JFrame frame = new JFrame();
 	
-	public static void main(String[] args){
-		JFrame frame = new JFrame();
-    
+	public static void main(String[] args){    
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				JPanel chessBoard = new JPanel(new GridLayout(0, 8));
@@ -137,6 +136,14 @@ public class Main extends JPanel {
 	}
 	
 	public static void gameOver(String winningSide){
+		JLabel label = new JLabel(winningSide + " has lost");
+		label.setVerticalTextPosition(JLabel.BOTTOM);
+		label.setHorizontalTextPosition(JLabel.CENTER);
+		label.setOpaque(true);
+		label.setBackground(Color.GRAY);
+		label.setForeground(Color.WHITE);
+		frame.add(label);
+		
 		System.out.println(winningSide + " has lost");
 	}
 	

@@ -102,7 +102,6 @@ public class Unit extends JPanel implements ActionListener{
 		
 		Unit unit = Main.getGrid().get(index);
 		Piece piece = unit.getPiece();
-		System.out.println(unit.hasPiece());
 		if(unit.hasPiece()){
 			System.out.println(piece.getSide());
 			if(piece.getSide() == p2.getSide()){
@@ -113,7 +112,6 @@ public class Unit extends JPanel implements ActionListener{
 				if(p2.getClass().getSimpleName() != "Pawn"){
 					System.out.println(p2.getClass().getSimpleName());
 					if(piece.getSide() == "black"){
-						System.out.println("black got into here");
 						if(piece.getClass() == King.class){
 							Main.gameOver(piece.getSide());
 						}
@@ -121,7 +119,6 @@ public class Unit extends JPanel implements ActionListener{
 						Main.getBlackPieces().remove(index2);
 					}
 					else{
-						System.out.println("white got into here");
 						if(piece.getClass() == King.class){
 							Main.gameOver(piece.getSide());
 						}
@@ -211,10 +208,8 @@ public class Unit extends JPanel implements ActionListener{
 					}
 				}
 			}
-			System.out.println("lociation");
-			System.out.println(loc);
+
 			for(int x=0; x<moves.size(); x++){
-				System.out.println(moves.get(x));
 				if(moves.get(x).equals(loc)){
 					if(Main.getTurn() == "white"){
 						ArrayList<Piece> whitePieces = Main.getWhitePieces();
@@ -222,7 +217,6 @@ public class Unit extends JPanel implements ActionListener{
 						Piece selected = whitePieces.get(index);
 						Location temp1 = selected.getCoordinate();
 						if(check(selected)){
-							System.out.println("got into here 4");
 							selected.setCoordinate(loc);
 							Main.getGrid().get(loc.getX()*8 + loc.getY()).setPiece(selected);
 
